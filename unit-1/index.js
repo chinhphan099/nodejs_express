@@ -5,6 +5,7 @@ var express = require('express'),
     {id: 1, name: 'Chinh'},
     {id: 2, name: 'Yen'}
   ];
+
 app.set('view engine', 'pug');
 app.set('views', './views');
 
