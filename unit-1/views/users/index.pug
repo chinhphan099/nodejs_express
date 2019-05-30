@@ -6,3 +6,5 @@ form(action="/users/search", method="GET")
 ul
   each user in users
     li!= user.name
+      a(href="/users/" + user.id style="color: red; padding-left: 15px; cursor: pointer;") View
+      a.remove(href="/users/remove/" + user.id) Remove
