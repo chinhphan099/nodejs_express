@@ -25,7 +25,7 @@ user.create = function(req, res) {
 };
 
 user.postCreate = function(req, res) {
-  req.body.id = shortid.generate();
+  req.body.id = shortid.generate(); // Create Random Key.
   db.get('users').push(req.body).write();
   res.redirect('/users');
 };

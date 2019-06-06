@@ -11,6 +11,8 @@ app.set('views', './views');
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
 
+app.use(express.static('public'));
+
 // Index page
 app.get('/', function(req, res) {
   res.render('index', {
