@@ -26,6 +26,24 @@ user.create = function(req, res) {
 
 user.postCreate = function(req, res) {
   req.body.id = shortid.generate(); // Create Random Key.
+  var errors = [];
+
+  if(!req.body.name) {
+    errors.push('Empty name')
+  }
+
+  if(!req.body.phone) {
+    errors.push('Empty phone')
+  }
+
+  if(errors.length) {
+    res.render('users/create', {
+      errors: errors,
+      values: req.body
+    })
+    return;
+  }
+
   db.get('users').push(req.body).write();
   res.redirect('/users');
 };
@@ -33,6 +51,7 @@ user.postCreate = function(req, res) {
 user.get = function(req, res) {
   var id = req.params.id;
   var user = db.get('users').find({id: id}).value();
+  console.log(id);
   res.render('users/view', {
     user: user
   });

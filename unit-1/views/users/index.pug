@@ -8,5 +8,6 @@ block main
   ul
     each user in users
       li!= user.name
+        span(style="padding-left: 10px;")!= user.phone
         a(href="/users/" + user.id style="color: red; padding-left: 15px; cursor: pointer;") View
         a.remove(href="/users/remove/" + user.id) Remove

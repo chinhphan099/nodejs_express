@@ -1,7 +1,12 @@
 extends ../layouts/template
 block main
   h1 create user
+  if errors
+    each error in errors
+      p= error
+
   form(action="/users/create", method="POST")
     label Name
-    input(type="text" name="name")
+    input(type="text" name="name" value!= values.name)
+    input(type="text" name="phone" value!= values.phone)
     button Create
