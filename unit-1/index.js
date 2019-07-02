@@ -7,12 +7,9 @@ var express = require('express'),
 app.set('view engine', 'pug');
 app.set('views', './views');
 
-// bodyParser use for red.body
+// bodyParser use for req.body
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
-
-// Public file in folder public
-app.use(express.static('public'));
 
 // Index page
 app.get('/', function(req, res) {
@@ -22,6 +19,9 @@ app.get('/', function(req, res) {
 });
 
 app.use('/users', userRoute);
+
+// Public file in folder public
+app.use(express.static('public'));
 
 // Run localhost
 app.listen(port, function() {

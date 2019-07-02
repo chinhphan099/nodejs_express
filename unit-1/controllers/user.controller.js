@@ -48,6 +48,7 @@ user.postCreate = function(req, res) {
   res.redirect('/users');
 };
 
+// Show info 1 user
 user.get = function(req, res) {
   var id = req.params.id;
   var user = db.get('users').find({id: id}).value();
