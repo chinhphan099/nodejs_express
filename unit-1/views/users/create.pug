@@ -6,7 +6,6 @@ block main
       p= error
 
   form(action="/users/create", method="POST")
-    label Name
-    input(type="text" name="name" value!= values.name)
-    input(type="text" name="phone" value!= values.phone)
+    input(type="text" name="name" placeholder="name" value!=values ? values.name : "")
+    input(type="text" name="phone" placeholder="phone" value!=values ? values.phone : "")
     button Create
