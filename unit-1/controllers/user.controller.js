@@ -26,35 +26,18 @@ user.create = function(req, res) {
 
 user.postCreate = function(req, res) {
   req.body.id = shortid.generate(); // Create Random Key.
-  var errors = [];
-
-  if(!req.body.name) {
-    errors.push('Empty name')
-  }
-
-  if(!req.body.phone) {
-    errors.push('Empty phone')
-  }
-
-  if(errors.length) {
-    res.render('users/create', {
-      errors: errors,
-      values: req.body
-    })
-    return;
-  }
 
   db.get('users').push(req.body).write();
   res.redirect('/users');
 };
 
 // Show info 1 user
-user.get = function(req, res) {
+user.getUser = function(req, res) {
   var id = req.params.id;
-  var user = db.get('users').find({id: id}).value();
-  console.log(id);
+  var userDetails = db.get('users').find({id: id}).value();
+
   res.render('users/view', {
-    user: user
+    user: userDetails
   });
 };
 
