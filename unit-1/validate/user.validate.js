@@ -1,4 +1,4 @@
-module.exports.postCreate = function(req, res, next) {
+module.exports.postCreate = (req, res, next) => {
   var errors = [];
 
   if(!req.body.name) {

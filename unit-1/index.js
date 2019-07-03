@@ -12,7 +12,7 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
 
 // Index page
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.render('index', {
     name: 'Chinh'
   });
@@ -24,6 +24,6 @@ app.use('/users', userRoute);
 app.use(express.static('public'));
 
 // Run localhost
-app.listen(port, function() {
+app.listen(port, () => {
   console.log('Server listening on port ' + port);
 });

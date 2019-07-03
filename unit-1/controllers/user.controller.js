@@ -2,15 +2,15 @@ var db = require('../db');
 var shortid = require('shortid');
 var user = {};
 
-user.index = function(req, res) {
+user.index = (req, res) => {
   res.render('users/index', {
     users: db.get('users').value()
   });
 };
 
-user.search = function(req, res) {
+user.search = (req, res) => {
   var q = req.query.q;
-  var matchedUser = db.get('users').value().filter(function(user) {
+  var matchedUser = db.get('users').value().filter((user) => {
     return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
 
@@ -20,11 +20,11 @@ user.search = function(req, res) {
   })
 };
 
-user.create = function(req, res) {
+user.create = (req, res) => {
   res.render('users/create');
 };
 
-user.postCreate = function(req, res) {
+user.postCreate = (req, res) => {
   req.body.id = shortid.generate(); // Create Random Key.
 
   db.get('users').push(req.body).write();
@@ -32,7 +32,7 @@ user.postCreate = function(req, res) {
 };
 
 // Show info 1 user
-user.getUser = function(req, res) {
+user.getUser = (req, res) => {
   var id = req.params.id;
   var userDetails = db.get('users').find({id: id}).value();
 
@@ -41,7 +41,7 @@ user.getUser = function(req, res) {
   });
 };
 
-user.remove = function(req, res) {
+user.remove = (req, res) => {
   var id = req.params.id;
   var user = db.get('users').remove({id: id}).write();
   res.redirect('/users');
