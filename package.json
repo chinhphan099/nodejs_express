@@ -16,6 +16,9 @@
     "pug": "^2.0.3",
     "shortid": "^2.2.14"
   },
+  "scripts": {
+    "start": "node index.js"
+  },
   "devDependencies": {
     "nodemon": "^1.19.0"
   }
