@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
   });
 });
 
+// User Routes
 app.use('/users', userRoute);
 
 // Public file in folder public
