@@ -2,7 +2,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   userRoute = require('./routes/user.route'),
   app = express(),
-  port = 3000;
+  port = process.env.PORT || 3000;
 
 app.set('view engine', 'pug');
 app.set('views', './views');
