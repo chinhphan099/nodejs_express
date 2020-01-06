@@ -43,7 +43,7 @@ user.getUser = (req, res) => {
 
 user.remove = (req, res) => {
   var id = req.params.id;
-  var user = db.get('users').remove({id: id}).write();
+  db.get('users').remove({id: id}).write();
   res.redirect('/users');
 };
 
