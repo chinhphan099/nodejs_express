@@ -3,7 +3,9 @@
     {
       "name": "phan",
       "phone": "123",
-      "id": "Il348ukLE"
+      "id": "Il348ukLE",
+      "email": "chinh@gmail.com",
+      "password": "123"
     },
     {
       "name": "chinh",

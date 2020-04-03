@@ -21,6 +21,7 @@ user.search = (req, res) => {
 };
 
 user.create = (req, res) => {
+  console.log(req.cookies);
   res.render('users/create');
 };
 
