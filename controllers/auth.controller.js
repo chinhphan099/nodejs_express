@@ -1,6 +1,7 @@
 var db = require('../db');
 var shortid = require('shortid');
 var auth = {};
+var md5 = require('md5');
 
 auth.login = (req, res) => {
   res.render('auth/login');
@@ -21,7 +22,7 @@ auth.postLogin = (req, res) => {
     return;
   }
 
-  if(user.password !== password) {
+  if(user.password !== md5(password)) {
     res.render('auth/login', {
       errors: [
         'Wrong password.'
@@ -31,7 +32,9 @@ auth.postLogin = (req, res) => {
     return;
   }
 
-  res.cookie('userId', user.id);
+  res.cookie('userId', user.id, {
+    signed: true
+  });
   res.redirect('/users');
 };
 

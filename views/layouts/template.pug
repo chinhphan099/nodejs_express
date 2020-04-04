@@ -21,6 +21,8 @@ html(class="no-js", lang="en")
       .main-container
         .inner
           block main
+          if user
+            p= user.name
           .footer: p.copyright @ 2016 Phan Chinh - Email: #[a(href="mailto:chinhphan099@gmail.com") chinhphan099@gmail.com]
     .overlay
     noscript JavaScript is off. Please enable to view full site.
