@@ -5,6 +5,7 @@ var express = require('express'),
 
 var userRoute = require('./routes/user.route'), // import user route
   authRoute = require('./routes/auth.route'), // import auth route
+  productRoute = require('./routes/product.route'), // import auth route
   app = express(),
   port = process.env.PORT || 3000;
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 // User Routes // Define route for user
 app.use('/users', authMiddleWare.requireAuth, userRoute);
 app.use('/auth', authRoute);
+app.use('/products', productRoute);
 
 // Public file in folder public
 app.use(express.static('public'));

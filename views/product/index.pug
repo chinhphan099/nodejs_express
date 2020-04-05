@@ -1,0 +1,6 @@
+extends ../layouts/template
+block main
+  h1#heading Product
+  ul
+    each product in products
+      li!= product.name
