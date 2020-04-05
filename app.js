@@ -3,13 +3,16 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser');
 
-var userRoute = require('./routes/user.route'), // import user route
-  authRoute = require('./routes/auth.route'), // import auth route
-  productRoute = require('./routes/product.route'), // import auth route
+var userRoute = require('./routes/user.route'),
+  authRoute = require('./routes/auth.route'),
+  productRoute = require('./routes/product.route'),
+  cartRoute = require('./routes/cart.route'),
   app = express(),
   port = process.env.PORT || 3000;
 
-var authMiddleWare = require('./middlewares/auth.middleware');
+var authMiddleware = require('./middlewares/auth.middleware');
+var sessionMiddleware = require('./middlewares/session.middleware');
+
 app.set('view engine', 'pug');
 app.set('views', './views'); // Set root view folder
 
@@ -17,6 +20,7 @@ app.set('views', './views'); // Set root view folder
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(sessionMiddleware);
 
 // Index page // Render index page base on root view folder
 app.get('/', (req, res) => {
@@ -26,9 +30,10 @@ app.get('/', (req, res) => {
 });
 
 // User Routes // Define route for user
-app.use('/users', authMiddleWare.requireAuth, userRoute);
+app.use('/users', authMiddleware.requireAuth, userRoute);
 app.use('/auth', authRoute);
 app.use('/products', productRoute);
+app.use('/cart', cartRoute);
 
 // Public file in folder public
 app.use(express.static('public'));

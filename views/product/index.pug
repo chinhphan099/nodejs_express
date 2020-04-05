@@ -3,4 +3,6 @@ block main
   h1#heading Product
   ul
     each product in products
-      li!= product.name
+      li
+        != product.name
+        a.add-to-cart(href="/cart/add/" + product.id) Add
