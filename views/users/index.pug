@@ -5,9 +5,17 @@ block main
   form(action="/users/search", method="GET")
     input#searchTxt(type="text" name="q" value!= q)
     button Search
-  ul
+  table
+    tr
+      th Avatar
+      th Name
+      th Phone
+      th View
+      th Remove
     each user in users
-      li!= user.name
-        span(style="padding-left: 10px;")!= user.phone
-        a(href="/users/" + user.id style="color: red; padding-left: 15px; cursor: pointer;") View
-        a.remove(href="/users/remove/" + user.id) Remove
+      tr
+        td: img(src=user.avt || "/uploads/a7ff5b873df172256f607c638830e184" width="40")
+        td= user.name
+        td= user.phone
+        td: a(href="/users/" + user.id style="color: red; padding-left: 15px; cursor: pointer;") View
+        td: a.remove(href="/users/remove/" + user.id) Remove

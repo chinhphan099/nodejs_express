@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var userController = require('../controllers/user.controller');
 var validate = require('../validate/user.validate');
+var multer = require('multer');
+var upload = multer({dest: './public/uploads/'});
 
 // Render all users
 router.get('/', userController.index);
@@ -18,7 +20,7 @@ router.get('/search', userController.search);
 router.get('/create', userController.create);
 
 // Post data from create form then write data to db and redirect to users page.
-router.post('/create', validate.postCreate, userController.postCreate);
+router.post('/create', upload.single('avt'), validate.postCreate, userController.postCreate);
 
 // Show user info by render from view page.
 router.get('/:id', userController.getUser);

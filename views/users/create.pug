@@ -5,7 +5,8 @@ block main
     each error in errors
       p= error
 
-  form(action="/users/create", method="POST")
+  form(action="/users/create", method="POST" enctype="multipart/form-data")
     input(type="text" name="name" placeholder="name" value!=values ? values.name : "")
     input(type="text" name="phone" placeholder="phone" value!=values ? values.phone : "")
+    input(type="file" name="avt" placeholder="avt" value!=values ? values.avt : "")
     button Create
