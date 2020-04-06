@@ -9,7 +9,7 @@ var upload = multer({dest: './public/uploads/'});
 router.get('/', userController.index);
 
 router.get('/cookie', (req, res, next) => {
-  res.cookie('user-id', 12345);
+  res.cookie('user-id', 'chinhtesttest');
   res.send('Hello');
 })
 
