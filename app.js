@@ -1,12 +1,14 @@
 require('dotenv').config();
 var express = require('express'),
   bodyParser = require('body-parser'),
-  cookieParser = require('cookie-parser');
+  cookieParser = require('cookie-parser'),
+  csurf = require('csurf');
 
 var userRoute = require('./routes/user.route'),
   authRoute = require('./routes/auth.route'),
   productRoute = require('./routes/product.route'),
   cartRoute = require('./routes/cart.route'),
+  transferRoute = require('./routes/transfer.route'),
   app = express(),
   port = process.env.PORT || 3000;
 
@@ -21,6 +23,7 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(sessionMiddleware);
+app.use(csurf({cookie: true})); // add token when submit form transfer
 
 // Index page // Render index page base on root view folder
 app.get('/', (req, res) => {
@@ -34,6 +37,7 @@ app.use('/users', authMiddleware.requireAuth, userRoute);
 app.use('/auth', authRoute);
 app.use('/products', productRoute);
 app.use('/cart', cartRoute);
+app.use('/transfer', transferRoute);
 
 // Public file in folder public
 app.use(express.static('public'));

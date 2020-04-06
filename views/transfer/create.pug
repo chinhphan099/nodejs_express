@@ -1,0 +1,8 @@
+extends ../layouts/template
+block main
+  h1 Transfer
+  form(method="POST")
+    input(type="hidden" name="_csrf" value=csrfToken)
+    input(type="text" name="accountId")
+    input(type="number" name="amount")
+    button Transfer

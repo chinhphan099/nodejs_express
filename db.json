@@ -109,5 +109,17 @@
         "asdasd3": 2
       }
     }
+  ],
+  "transfer": [
+    {
+      "id": "9RWYGsYiM",
+      "accountId": "asdas",
+      "amount": 123123
+    },
+    {
+      "id": "LOa8bdk1L",
+      "accountId": "asdas",
+      "amount": 123123111
+    }
   ]
 }
