@@ -2,7 +2,14 @@ require('dotenv').config();
 var express = require('express'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
+  cors = require('cors'),
   csurf = require('csurf');
+
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URL_PRODUCTION, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 var userRoute = require('./routes/user.route'),
   authRoute = require('./routes/auth.route'),
@@ -19,6 +26,7 @@ app.set('view engine', 'pug');
 app.set('views', './views'); // Set root view folder
 
 // bodyParser use for req.body
+app.use(cors());
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
 app.use(cookieParser(process.env.SESSION_SECRET));

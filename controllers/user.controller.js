@@ -1,16 +1,19 @@
 var db = require('../db');
-var shortid = require('shortid');
+var md5 = require('md5');
+var Users = require('../models/user.model');
 var user = {};
 
-user.index = (req, res) => {
+user.index = async (req, res) => {
+  var users = await Users.find();
   res.render('users/index', {
-    users: db.get('users').value()
+    users: users
   });
 };
 
-user.search = (req, res) => {
+user.search = async (req, res) => {
   var q = req.query.q;
-  var matchedUser = db.get('users').value().filter((user) => {
+  var matchedUser = await Users.find();
+  matchedUser = matchedUser.filter((user) => {
     return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
   });
 
@@ -25,27 +28,42 @@ user.create = (req, res) => {
   res.render('users/create');
 };
 
-user.postCreate = (req, res) => {
-  req.body.id = shortid.generate(); // Create Random Key.
-  req.body.avt = req.file.path.split('/').slice(1).join('/');
-
-  db.get('users').push(req.body).write();
+user.postCreate = async (req, res) => {
+  var newUser = new Users({
+    email: req.body.email,
+    phone: req.body.phone,
+    password: md5(req.body.password),
+    name: req.body.name,
+    avt: req.file.path.split('/').slice(1).join('/')
+  });
+  try {
+    await newUser.save();
+  }
+  catch (err) {
+    console.log(err)
+  }
   res.redirect('/users');
 };
 
 // Show info 1 user
-user.getUser = (req, res) => {
+user.getUser = async (req, res) => {
   var id = req.params.id;
-  var userDetails = db.get('users').find({id: id}).value();
+  // var userDetails = db.get('users').find({id: id}).value();
+  var userDetails = await Users.findOne({_id: id});
 
   res.render('users/view', {
     user: userDetails
   });
 };
 
-user.remove = (req, res) => {
+user.remove = async (req, res) => {
   var id = req.params.id;
-  db.get('users').remove({id: id}).write();
+  try {
+    await Users.deleteOne({_id: id});
+  }
+  catch(e) {
+    console.log(e);
+  }
   res.redirect('/users');
 };
 

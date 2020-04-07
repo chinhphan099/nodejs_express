@@ -8,5 +8,7 @@ block main
   form(action="/users/create", method="POST" enctype="multipart/form-data")
     input(type="text" name="name" placeholder="name" value!=values ? values.name : "")
     input(type="text" name="phone" placeholder="phone" value!=values ? values.phone : "")
+    input(type="text" name="email" placeholder="email" value!=values ? values.email : "")
+    input(type="password" name="password" placeholder="password" value!=values ? values.password : "")
     input(type="file" name="avt" placeholder="avt" value!=values ? values.avt : "")
     button Create
