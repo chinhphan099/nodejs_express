@@ -1,2 +1,3 @@
 #install: npm install
-#run: npm start
+#run: npm run dev
+#start on server(heroku): npm start
