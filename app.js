@@ -16,6 +16,7 @@ var userRoute = require('./routes/user.route'),
   productRoute = require('./routes/product.route'),
   cartRoute = require('./routes/cart.route'),
   transferRoute = require('./routes/transfer.route'),
+  apiProductRoute = require('./api/routes/product.route'),
   app = express(),
   port = process.env.PORT || 3000;
 
@@ -46,6 +47,7 @@ app.use('/auth', authRoute);
 app.use('/products', productRoute);
 app.use('/cart', cartRoute);
 app.use('/transfer', transferRoute);
+app.use('/api/products', apiProductRoute);
 
 // Public file in folder public
 app.use(express.static('public'));
