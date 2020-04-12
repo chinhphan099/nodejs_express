@@ -1,6 +1,69 @@
 extends ../layouts/template
+block scripts
+  <!-- Script -->
+  script.
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '148310156613940',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v6.0'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    async function callAjax(url, options) {
+      var setting = {
+        method: !!options.method ? options.method : 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(options.data)
+      };
+      var res = await fetch(url, setting);
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(new Error(res.statusText));
+      }
+    }
+
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        if(response.status === 'connected' && response.authResponse.userID !== '') {
+          FB.api('/me?fields=id,email,name', async function(res) {
+            var options = {
+              method: 'POST',
+              data: {
+                name: res.name,
+                email: res.email,
+                fbId: res.id,
+                accessToken: response.authResponse.accessToken
+              }
+            };
+            await callAjax('/api/users/create', options).then(function(result) {
+              document.getElementById('heading').insertAdjacentHTML('afterend', `<p>Xin chào! ${result.name}</p>`);
+              document.querySelector('.fb-login').style.display = 'none';
+            });
+          });
+        }
+      });
+    }
+  <!-- Script -->
 block main
   h1#heading Product
+  if(name)
+    p Xin chao #{name}
+  else
+    fb:login-button(class="fb-login" scope="public_profile,email" onlogin="checkLoginState(this);")
   ul
     each product in products
       li

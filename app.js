@@ -17,6 +17,7 @@ var userRoute = require('./routes/user.route'),
   cartRoute = require('./routes/cart.route'),
   transferRoute = require('./routes/transfer.route'),
   apiProductRoute = require('./api/routes/product.route'),
+  apiUserRoute = require('./api/routes/user.route'),
   app = express(),
   port = process.env.PORT || 3000;
 
@@ -32,7 +33,7 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({extended: true})); // parse application/x-www-form-urlencoded
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(sessionMiddleware);
-app.use(csurf({cookie: true})); // add token when submit form transfer
+// app.use(csurf({cookie: true})); // add token when submit form transfer
 
 // Index page // Render index page base on root view folder
 app.get('/', (req, res) => {
@@ -48,6 +49,7 @@ app.use('/products', productRoute);
 app.use('/cart', cartRoute);
 app.use('/transfer', transferRoute);
 app.use('/api/products', apiProductRoute);
+app.use('/api/users', apiUserRoute);
 
 // Public file in folder public
 app.use(express.static('public'));
